@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 
-class StaffListScreen extends StatelessWidget {
+import '../widgets/staff_card.dart';
+import '../models/staff_data.dart';
+import '../models/staff.dart';
 
+class StaffListScreen extends StatelessWidget {
   static const String routeName = '/';
-  
+
+  List<Staff> staffList = StaffData().staffList;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Staff List'),
+        title: Text('Staff Info'),
       ),
-      body: Center(
-        child: Text('Staff List Screen'),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return StaffCard(staffList[index]);
+        },
+        itemCount: staffList.length,
       ),
     );
   }
