@@ -48,7 +48,7 @@ class StaffCard extends StatelessWidget {
                       '${staff.name} ${staff.surnames}',
                     ),
                     Text(
-                      '${staff.printRole()}',
+                      '${staff.role}',
                       style: TextStyle(
                           color: Colors.grey, fontStyle: FontStyle.italic),
                     ),
