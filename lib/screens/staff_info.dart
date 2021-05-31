@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../models/staff.dart';
 import '../widgets/staff_update_textformfield.dart';
@@ -13,13 +18,26 @@ class StaffInfoScreen extends StatefulWidget {
 }
 
 class _StaffInfoScreenState extends State<StaffInfoScreen> {
+  final formKey = new GlobalKey<FormState>();
   String _staffRole = '';
   Staff staff;
-  final formKey = new GlobalKey<FormState>();
+  final _imagePicker = ImagePicker();
+  PickedFile _pickedFile;
+  File file;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> pickImage() async {
+    final pickedFile = await _imagePicker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if(pickedFile != null) {
+        file = File(pickedFile.path);
+      }
+    });
   }
 
   @override
@@ -112,8 +130,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                         child: ElevatedButton(
-                          onPressed: () {},
                           child: Text('Load new image'),
+                          onPressed: pickImage,
                         ),
                       ),
                     ),
