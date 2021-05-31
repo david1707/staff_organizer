@@ -57,7 +57,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   decoration: InputDecoration(
                       labelText: 'Photo URL',
                       contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-                  initialValue: '${staff.photoUrl}',
+                  initialValue: '${staff.photoName}',
                   textInputAction: TextInputAction.next,
                 ),
                 // TODO Improve styling
