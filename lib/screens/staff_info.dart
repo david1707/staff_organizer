@@ -52,15 +52,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               children: [
                 StaffUpdateTextFormField('Name', staff.name),
                 StaffUpdateTextFormField('Surname(s)', staff.surnames),
-                // TODO Change URL to real image
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Photo URL',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-                  initialValue: '${staff.photoName}',
-                  textInputAction: TextInputAction.next,
-                ),
-                // TODO Improve styling
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
@@ -104,6 +95,31 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   textField: 'display',
                   valueField: 'value',
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 18.0),
+                        child: Image.asset(
+                          'assets/images/${staff.photoName}',
+                          height: 100,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Load new image'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                // TODO Improve styling
               ],
             ),
           ),
