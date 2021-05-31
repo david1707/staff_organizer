@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 
 import '../models/staff.dart';
+import '../widgets/staff_update_textformfield.dart';
 
 class StaffInfoScreen extends StatefulWidget {
   static const String routeName = '/staff-info';
@@ -24,7 +25,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   @override
   Widget build(BuildContext context) {
     staff = ModalRoute.of(context).settings.arguments as Staff;
-    _staffRole.isEmpty ? _staffRole = staff.role : null;
+    if (_staffRole.isEmpty) _staffRole = staff.role;
 
     return Scaffold(
       appBar: AppBar(
@@ -49,21 +50,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // TODO: Move TextFormField to a new custom Widget
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Name',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-                  initialValue: '${staff.name}',
-                  textInputAction: TextInputAction.next,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Surname(s)',
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-                  initialValue: '${staff.surnames}',
-                  textInputAction: TextInputAction.next,
-                ),
+                StaffUpdateTextFormField('Name', staff.name),
+                StaffUpdateTextFormField('Surname(s)', staff.surnames),
                 // TODO Change URL to real image
                 TextFormField(
                   decoration: InputDecoration(
