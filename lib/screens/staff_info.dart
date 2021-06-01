@@ -21,21 +21,23 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   final formKey = new GlobalKey<FormState>();
   String _staffRole = '';
   Staff staff;
-  final _imagePicker = ImagePicker();
-  PickedFile _pickedFile;
-  File file;
+  // Directory appDocDir;
+  // String appDocPath;
+  // final String fileName = 'test';
+  File _storedImage;
 
   @override
   void initState() {
     super.initState();
   }
 
-  Future<void> pickImage() async {
-    final pickedFile = await _imagePicker.getImage(source: ImageSource.gallery);
+  Future<void> loadNewImage(ImageSource source) async {
+    final imageFile = await ImagePicker().getImage(source: source);
 
     setState(() {
-      if(pickedFile != null) {
-        file = File(pickedFile.path);
+      if (imageFile != null) {
+        _storedImage = File(imageFile.path);
+        print(_storedImage.path);
       }
     });
   }
@@ -119,19 +121,29 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                       flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 18.0),
-                        child: Image.asset(
-                          'assets/images/${staff.photoName}',
-                          height: 100,
-                        ),
+                        child: _storedImage != null
+                            ? Image.file(
+                                _storedImage,
+                                height: 100,
+                              )
+                            : null,
                       ),
                     ),
                     Expanded(
                       flex: 2,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                        child: ElevatedButton(
-                          child: Text('Load new image'),
-                          onPressed: pickImage,
+                        child: Column(
+                          children: [
+                            TextButton(
+                              child: Text('Load new image'),
+                              onPressed: () => loadNewImage(ImageSource.gallery),
+                            ),
+                            TextButton(
+                              child: Text('Take a picture'),
+                              onPressed: () => loadNewImage(ImageSource.camera),
+                            ),
+                          ],
                         ),
                       ),
                     ),
