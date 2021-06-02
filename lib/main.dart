@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './screens/staff_info.dart';
+import 'screens/staff_create_edit.dart';
 import './screens/staff_list_screen.dart';
 
 void main() {

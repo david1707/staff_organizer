@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../models/staff.dart';
+import '../models/staff_data.dart';
 import '../widgets/staff_update_textformfield.dart';
+import '../widgets/staff_drawer.dart';
 
 class StaffInfoScreen extends StatefulWidget {
   static const String routeName = '/staff-info';
@@ -21,10 +21,9 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   final formKey = new GlobalKey<FormState>();
   String _staffRole = '';
   Staff staff;
-  // Directory appDocDir;
-  // String appDocPath;
-  // final String fileName = 'test';
   File _storedImage;
+  TextEditingController _nameController;
+  TextEditingController _surnamesController;
 
   @override
   void initState() {
@@ -45,7 +44,17 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   @override
   Widget build(BuildContext context) {
     staff = ModalRoute.of(context).settings.arguments as Staff;
-    if (_staffRole.isEmpty) _staffRole = staff.role;
+
+    // New user? Create empty Staff. Edit user? Fetch existing Staff
+    if (_staffRole.isEmpty && staff?.role != null) {
+      _staffRole = staff?.role;
+      _nameController = TextEditingController(text: staff.name);
+      _surnamesController = TextEditingController(text: staff.surnames);
+    } else {
+      staff = Staff.create();
+      _nameController = TextEditingController(text: '');
+      _surnamesController = TextEditingController(text: '');
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -57,8 +66,13 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              // Update and, if confirmed, go back to the Staff List Screen
-              Navigator.pop(context);
+              print(_nameController);
+              print(_nameController.text);
+              print(_nameController.value);
+              staff.name = _nameController.text;
+              staff.surnames = _surnamesController.text;
+              staff.role = _staffRole;
+              StaffData().addNewStaff(staff);
             },
           )
         ],
@@ -70,8 +84,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                StaffUpdateTextFormField('Name', staff.name),
-                StaffUpdateTextFormField('Surname(s)', staff.surnames),
+                StaffUpdateTextFormField('Name', _nameController),
+                StaffUpdateTextFormField('Surname(s)', _surnamesController),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
@@ -137,7 +151,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                           children: [
                             TextButton(
                               child: Text('Load new image'),
-                              onPressed: () => loadNewImage(ImageSource.gallery),
+                              onPressed: () =>
+                                  loadNewImage(ImageSource.gallery),
                             ),
                             TextButton(
                               child: Text('Take a picture'),
@@ -155,6 +170,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           ),
         ),
       ),
+      drawer: StaffDrawer(StaffInfoScreen.routeName),
     );
   }
 }

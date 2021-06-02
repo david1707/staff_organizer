@@ -12,4 +12,11 @@ class Staff {
     @required this.surnames,
     @required this.role,
   });
+
+  Staff.create({
+    this.photoName = '',
+    this.name = '',
+    this.surnames = '',
+    this.role = '',
+  });
 }

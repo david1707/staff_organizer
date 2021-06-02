@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import './staff.dart';
 
 class StaffData {
@@ -30,5 +32,15 @@ class StaffData {
 
   List<Staff> get staffList {
     return _staffList;
+  }
+
+  void addNewStaff(Staff staff) {
+    if (staff.name.isNotEmpty &&
+        staff.surnames.isNotEmpty &&
+        staff.role.isNotEmpty) {
+      print('Total users: ${_staffList.length}');
+      _staffList.add(staff);
+      print('Total users: ${_staffList.length}');
+    }
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/staff_card.dart';
 import '../models/staff_data.dart';
 import '../models/staff.dart';
+import '../widgets/staff_card.dart';
+import '../widgets/staff_drawer.dart';
 
 class StaffListScreen extends StatelessWidget {
   static const String routeName = '/';
@@ -35,6 +36,7 @@ class StaffListScreen extends StatelessWidget {
         },
         itemCount: staffList.length,
       ),
+      drawer: StaffDrawer(routeName),
     );
   }
 }
