@@ -1,14 +1,14 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as path_provider;
 
 import '../models/staff.dart';
 import '../widgets/staff_update_textformfield.dart';
+import '../widgets/staff_drawer.dart';
 
 class StaffInfoScreen extends StatefulWidget {
   static const String routeName = '/staff-info';
@@ -21,9 +21,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   final formKey = new GlobalKey<FormState>();
   String _staffRole = '';
   Staff staff;
-  // Directory appDocDir;
-  // String appDocPath;
-  // final String fileName = 'test';
   File _storedImage;
 
   @override
@@ -45,7 +42,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   @override
   Widget build(BuildContext context) {
     staff = ModalRoute.of(context).settings.arguments as Staff;
-    if (_staffRole.isEmpty) _staffRole = staff.role;
+    if (_staffRole.isEmpty && staff?.role != null) _staffRole = staff?.role;
+    else staff = Staff.create();
 
     return Scaffold(
       appBar: AppBar(
@@ -137,7 +135,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                           children: [
                             TextButton(
                               child: Text('Load new image'),
-                              onPressed: () => loadNewImage(ImageSource.gallery),
+                              onPressed: () =>
+                                  loadNewImage(ImageSource.gallery),
                             ),
                             TextButton(
                               child: Text('Take a picture'),
@@ -155,6 +154,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           ),
         ),
       ),
+      drawer: StaffDrawer(StaffInfoScreen.routeName),
     );
   }
 }
