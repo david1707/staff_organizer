@@ -30,10 +30,7 @@ class StaffDrawer extends StatelessWidget {
           ListTile(
             title: Text('Create Staff'),
             onTap: () {
-              if (currentRouteName != StaffInfoScreen.routeName)
-                Navigator.of(context).pushNamed(StaffInfoScreen.routeName);
-              else
-                Navigator.pop(context);
+              Navigator.of(context).pushNamed(StaffInfoScreen.routeName);
             },
           ),
         ],
