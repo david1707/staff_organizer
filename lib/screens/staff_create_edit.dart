@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../models/staff.dart';
+import '../models/staff_data.dart';
 import '../widgets/staff_update_textformfield.dart';
 import '../widgets/staff_drawer.dart';
 
@@ -42,8 +42,10 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   @override
   Widget build(BuildContext context) {
     staff = ModalRoute.of(context).settings.arguments as Staff;
-    if (_staffRole.isEmpty && staff?.role != null) _staffRole = staff?.role;
-    else staff = Staff.create();
+    if (_staffRole.isEmpty && staff?.role != null)
+      _staffRole = staff?.role;
+    else
+      staff = Staff.create();
 
     return Scaffold(
       appBar: AppBar(
@@ -55,8 +57,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              // Update and, if confirmed, go back to the Staff List Screen
-              Navigator.pop(context);
+              
+              StaffData().addNewStaff(staff);
             },
           )
         ],

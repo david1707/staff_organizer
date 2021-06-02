@@ -31,4 +31,14 @@ class StaffData {
   List<Staff> get staffList {
     return _staffList;
   }
+
+  void addNewStaff(Staff staff) {
+    if (staff.name.isNotEmpty &&
+        staff.surnames.isNotEmpty &&
+        staff.role.isNotEmpty) {
+      print(_staffList.length);
+      _staffList.add(staff);
+      print(_staffList.length);
+    }
+  }
 }
