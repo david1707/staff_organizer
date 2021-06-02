@@ -1,20 +1,24 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class StaffUpdateTextFormField extends StatelessWidget {
-
-  StaffUpdateTextFormField(this.labelText, this.value);
-
   final String labelText;
-  final String value;
+  final TextEditingController textController;
+
+  StaffUpdateTextFormField(this.labelText, this.textController);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textController,
       decoration: InputDecoration(
           labelText: labelText,
           contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-      initialValue: value,
       textInputAction: TextInputAction.next,
+      onChanged: (text) {
+        textController.text = text;
+      },
     );
   }
 }

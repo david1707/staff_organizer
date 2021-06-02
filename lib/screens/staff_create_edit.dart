@@ -22,6 +22,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   String _staffRole = '';
   Staff staff;
   File _storedImage;
+  TextEditingController _nameController;
+  TextEditingController _surnamesController;
 
   @override
   void initState() {
@@ -42,10 +44,17 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   @override
   Widget build(BuildContext context) {
     staff = ModalRoute.of(context).settings.arguments as Staff;
-    if (_staffRole.isEmpty && staff?.role != null)
+
+    // New user? Create empty Staff. Edit user? Fetch existing Staff
+    if (_staffRole.isEmpty && staff?.role != null) {
       _staffRole = staff?.role;
-    else
+      _nameController = TextEditingController(text: staff.name);
+      _surnamesController = TextEditingController(text: staff.surnames);
+    } else {
       staff = Staff.create();
+      _nameController = TextEditingController(text: '');
+      _surnamesController = TextEditingController(text: '');
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +66,12 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              
+              print(_nameController);
+              print(_nameController.text);
+              print(_nameController.value);
+              staff.name = _nameController.text;
+              staff.surnames = _surnamesController.text;
+              staff.role = _staffRole;
               StaffData().addNewStaff(staff);
             },
           )
@@ -70,8 +84,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                StaffUpdateTextFormField('Name', staff.name),
-                StaffUpdateTextFormField('Surname(s)', staff.surnames),
+                StaffUpdateTextFormField('Name', _nameController),
+                StaffUpdateTextFormField('Surname(s)', _surnamesController),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
