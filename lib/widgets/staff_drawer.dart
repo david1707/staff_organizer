@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:staff_organizer/screens/staff_info.dart';
+import 'package:staff_organizer/screens/staff_create_edit.dart';
 
 import '../screens/staff_list_screen.dart';
 

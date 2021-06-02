@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/staff.dart';
-import '../screens/staff_info.dart';
+import '../screens/staff_create_edit.dart';
 
 class StaffCard extends StatelessWidget {
   final Staff staff;
