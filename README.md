@@ -7,6 +7,7 @@ WIP:
 - Fix and Add 'image' to the Staff Creating/Editing view
 - Add more fields to the Staff Model
 - Styiling (yeah, yeah, I'll do it. I promise...)
+- Improve the Drawer also (Maybe an image?)
 - Change 'saving' icon on Staff Creating/Editing depending of the action
 - Add validators on each Staff Field
 
