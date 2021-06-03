@@ -6,12 +6,11 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../models/staff.dart';
-import '../models/staff_data.dart';
 import '../widgets/staff_update_textformfield.dart';
 import '../widgets/staff_drawer.dart';
 
 class StaffInfoScreen extends StatefulWidget {
-  static const String routeName = '/staff-info';
+  static const String routeName = '/staff-create-edit';
 
   @override
   _StaffInfoScreenState createState() => _StaffInfoScreenState();
@@ -19,16 +18,12 @@ class StaffInfoScreen extends StatefulWidget {
 
 class _StaffInfoScreenState extends State<StaffInfoScreen> {
   final formKey = new GlobalKey<FormState>();
+
   String _staffRole = '';
   Staff staff;
   File _storedImage;
   TextEditingController _nameController;
   TextEditingController _surnamesController;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Future<void> loadNewImage(ImageSource source) async {
     final imageFile = await ImagePicker().getImage(source: source);
@@ -43,17 +38,21 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    staff = ModalRoute.of(context).settings.arguments as Staff;
+    
+    // TODO: Simplify this with an ID when we fetch the ID from Firebase
+    if (staff?.name == null) {
+      staff = ModalRoute.of(context).settings.arguments as Staff;
 
-    // New user? Create empty Staff. Edit user? Fetch existing Staff
-    if (_staffRole.isEmpty && staff?.role != null) {
-      _staffRole = staff?.role;
-      _nameController = TextEditingController(text: staff.name);
-      _surnamesController = TextEditingController(text: staff.surnames);
-    } else {
-      staff = Staff.empty();
-      _nameController = TextEditingController(text: '');
-      _surnamesController = TextEditingController(text: '');
+      // TODO: Clean this
+      if (_staffRole.isEmpty && staff?.role != null) {
+        _staffRole = staff?.role;
+        _nameController = TextEditingController(text: staff.name);
+        _surnamesController = TextEditingController(text: staff.surnames);
+      } else {
+        staff = Staff.empty();
+        _nameController = TextEditingController(text: '');
+        _surnamesController = TextEditingController(text: '');
+      }
     }
 
     return Scaffold(
@@ -87,11 +86,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   titleText: 'Role',
                   hintText: 'Please choose one role',
                   value: _staffRole,
-                  // onSaved: (value) {
-                  //   setState(() {
-                  //     _myActivity = value;
-                  //   });
-                  // },
                   onChanged: (value) {
                     setState(() {
                       _staffRole = value;

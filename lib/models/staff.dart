@@ -26,6 +26,7 @@ class Staff {
 
   void createNewStaff() async {
     print('ENTRA');
+    inspect(this);
     if (this.name.isNotEmpty &&
         this.surnames.isNotEmpty &&
         this.role.isNotEmpty) {
