@@ -3,7 +3,6 @@
 A tool for businesspeople to organize their staff easily using their phone
 
 WIP:
-- Create a Database for the project (Firebase?)
 - Fix and Add 'image' to the Staff Creating/Editing view
 - Add more fields to the Staff Model
 - Styiling (yeah, yeah, I'll do it. I promise...)

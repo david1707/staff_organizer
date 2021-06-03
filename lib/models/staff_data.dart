@@ -3,44 +3,9 @@ import 'dart:developer';
 import './staff.dart';
 
 class StaffData {
-  List<Staff> _staffList = [
-    Staff(
-      name: 'David',
-      surnames: 'Membrives',
-      photoName: 'male.jpg',
-      role: 'CEO',
-    ),
-    Staff(
-      name: 'Diana',
-      surnames: 'Belliure',
-      photoName: 'female.jpg',
-      role: 'Manager',
-    ),
-    Staff(
-      name: 'Han',
-      surnames: 'Yong',
-      photoName: 'male.jpg',
-      role: 'Accountant',
-    ),
-    Staff(
-      name: 'Siyanda',
-      surnames: 'Nea',
-      photoName: 'female.jpg',
-      role: 'Developer',
-    ),
-  ];
+  List<Staff> _staffList = [];
 
   List<Staff> get staffList {
     return _staffList;
-  }
-
-  void addNewStaff(Staff staff) {
-    if (staff.name.isNotEmpty &&
-        staff.surnames.isNotEmpty &&
-        staff.role.isNotEmpty) {
-      print('Total users: ${_staffList.length}');
-      _staffList.add(staff);
-      print('Total users: ${_staffList.length}');
-    }
   }
 }

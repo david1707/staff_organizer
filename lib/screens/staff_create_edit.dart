@@ -51,7 +51,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
       _nameController = TextEditingController(text: staff.name);
       _surnamesController = TextEditingController(text: staff.surnames);
     } else {
-      staff = Staff.create();
+      staff = Staff.empty();
       _nameController = TextEditingController(text: '');
       _surnamesController = TextEditingController(text: '');
     }
@@ -66,13 +66,10 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              print(_nameController);
-              print(_nameController.text);
-              print(_nameController.value);
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
               staff.role = _staffRole;
-              StaffData().addNewStaff(staff);
+              staff.createNewStaff();
             },
           )
         ],
