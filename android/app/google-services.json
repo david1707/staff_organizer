@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "758090651574",
+    "project_id": "staff-organizer-ba9f4",
+    "storage_bucket": "staff-organizer-ba9f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758090651574:android:eb058d71f75688954f5317",
+        "android_client_info": {
+          "package_name": "com.example.staff_organizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758090651574-pvp8c9jo0un0k8n2uhi7j6lh4qmqjq6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVuSSnn-e3GGag3ORSdf9uhjpnndMOfH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758090651574-pvp8c9jo0un0k8n2uhi7j6lh4qmqjq6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
