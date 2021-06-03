@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -24,6 +25,9 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
   File _storedImage;
   TextEditingController _nameController;
   TextEditingController _surnamesController;
+  TextEditingController _emailController;
+  TextEditingController _phoneController;
+  TextEditingController _descriptionController;
 
   Future<void> loadNewImage(ImageSource source) async {
     final imageFile = await ImagePicker().getImage(source: source);
@@ -36,9 +40,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    
+  void newStaffCheck() {
     // TODO: Simplify this with an ID when we fetch the ID from Firebase
     if (staff?.name == null) {
       staff = ModalRoute.of(context).settings.arguments as Staff;
@@ -48,12 +50,23 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
         _staffRole = staff?.role;
         _nameController = TextEditingController(text: staff.name);
         _surnamesController = TextEditingController(text: staff.surnames);
+        _emailController = TextEditingController(text: staff.surnames);
+        _phoneController = TextEditingController(text: staff.surnames);
+        _descriptionController = TextEditingController(text: staff.surnames);
       } else {
         staff = Staff.empty();
         _nameController = TextEditingController(text: '');
         _surnamesController = TextEditingController(text: '');
+        _emailController = TextEditingController(text: '');
+        _phoneController = TextEditingController(text: '');
+        _descriptionController = TextEditingController(text: '');
       }
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    newStaffCheck();
 
     return Scaffold(
       appBar: AppBar(
@@ -67,6 +80,9 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
             onPressed: () {
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
+              staff.email = _emailController.text;
+              staff.phone = _phoneController.text;
+              staff.description = _descriptionController.text;
               staff.role = _staffRole;
               staff.createNewStaff();
             },
@@ -82,6 +98,9 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               children: [
                 StaffUpdateTextFormField('Name', _nameController),
                 StaffUpdateTextFormField('Surname(s)', _surnamesController),
+                StaffUpdateTextFormField('Email', _emailController),
+                StaffUpdateTextFormField('Phone', _phoneController),
+                StaffUpdateTextFormField('Description', _descriptionController),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
