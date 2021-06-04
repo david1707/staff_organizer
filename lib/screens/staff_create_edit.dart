@@ -97,7 +97,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
             child: Column(
               children: [
                 StaffUpdateTextFormField('Name', _nameController),
-                StaffUpdateTextFormField('Surname(s)', _surnamesController),
+                StaffUpdateTextFormField('Surname/s', _surnamesController),
                 StaffUpdateTextFormField('Email', _emailController),
                 StaffUpdateTextFormField('Phone', _phoneController),
                 StaffUpdateTextFormField('Description', _descriptionController),

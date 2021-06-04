@@ -23,26 +23,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    getInitialDataStaff();
+    // TODO Do this properly, with checks
+    // getInitialDataStaff();
   }
 
-  void getInitialDataStaff() async {
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('staff');
-    QuerySnapshot staffList = await collectionReference.get();
-    if (staffList.docs.length != 0) {
-      for (var doc in staffList.docs) {
-        print(doc.data());
-      }
-    }
-  }
+  // void getInitialDataStaff() async {
+  //   CollectionReference collectionReference =
+  //       FirebaseFirestore.instance.collection('staff');
+  //   QuerySnapshot staffList = await collectionReference.get();
+  //   if (staffList.docs.length != 0) {
+  //     for (var doc in staffList.docs) {
+  //       print(doc.data());
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Staff Organizer',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.deepPurple,
+          fontFamily: 'RobotoMono'
+          
         ),
         initialRoute: '/',
         routes: {
