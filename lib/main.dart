@@ -41,16 +41,22 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Staff Organizer',
-        theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          fontFamily: 'RobotoMono'
-          
+      title: 'Staff Organizer',
+      theme: ThemeData(
+        primaryColor: const Color(0xff726EEF),
+        fontFamily: 'RobotoMono',
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: const Color(0xff212B38),
+          ),
         ),
-        initialRoute: '/',
-        routes: {
-          StaffInfoScreen.routeName: (context) => StaffInfoScreen(),
-          StaffListScreen.routeName: (context) => StaffListScreen(),
-        });
+        // TODO Change TextFormField hint to a grayish colour
+      ),
+      initialRoute: '/',
+      routes: {
+        StaffInfoScreen.routeName: (context) => StaffInfoScreen(),
+        StaffListScreen.routeName: (context) => StaffListScreen(),
+      },
+    );
   }
 }

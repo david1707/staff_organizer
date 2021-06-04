@@ -10,12 +10,17 @@ class StaffUpdateTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: textController,
-      decoration: InputDecoration(
-          labelText: labelText,
-          contentPadding: EdgeInsets.symmetric(horizontal: 12)),
-      textInputAction: TextInputAction.next,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        primaryColor: const Color(0xff08C6Ab),
+      ),
+      child: TextFormField(
+        controller: textController,
+        decoration: InputDecoration(
+            labelText: labelText,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12)),
+        textInputAction: TextInputAction.next,
+      ),
     );
   }
 }

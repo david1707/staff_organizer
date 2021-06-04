@@ -174,7 +174,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                     ),
                   ],
                 ),
-                // TODO Improve styling
               ],
             ),
           ),
