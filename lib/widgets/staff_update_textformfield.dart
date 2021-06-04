@@ -16,9 +16,6 @@ class StaffUpdateTextFormField extends StatelessWidget {
           labelText: labelText,
           contentPadding: EdgeInsets.symmetric(horizontal: 12)),
       textInputAction: TextInputAction.next,
-      onChanged: (text) {
-        textController.text = text;
-      },
     );
   }
 }

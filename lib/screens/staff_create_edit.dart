@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,12 +7,11 @@ import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../models/staff.dart';
-import '../models/staff_data.dart';
 import '../widgets/staff_update_textformfield.dart';
 import '../widgets/staff_drawer.dart';
 
 class StaffInfoScreen extends StatefulWidget {
-  static const String routeName = '/staff-info';
+  static const String routeName = '/staff-create-edit';
 
   @override
   _StaffInfoScreenState createState() => _StaffInfoScreenState();
@@ -19,16 +19,15 @@ class StaffInfoScreen extends StatefulWidget {
 
 class _StaffInfoScreenState extends State<StaffInfoScreen> {
   final formKey = new GlobalKey<FormState>();
+
   String _staffRole = '';
   Staff staff;
   File _storedImage;
   TextEditingController _nameController;
   TextEditingController _surnamesController;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  TextEditingController _emailController;
+  TextEditingController _phoneController;
+  TextEditingController _descriptionController;
 
   Future<void> loadNewImage(ImageSource source) async {
     final imageFile = await ImagePicker().getImage(source: source);
@@ -41,20 +40,33 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
     });
   }
 
+  void newStaffCheck() {
+    // TODO: Simplify this with an ID when we fetch the ID from Firebase
+    if (staff?.name == null) {
+      staff = ModalRoute.of(context).settings.arguments as Staff;
+
+      // TODO: Clean this
+      if (_staffRole.isEmpty && staff?.role != null) {
+        _staffRole = staff?.role;
+        _nameController = TextEditingController(text: staff.name);
+        _surnamesController = TextEditingController(text: staff.surnames);
+        _emailController = TextEditingController(text: staff.surnames);
+        _phoneController = TextEditingController(text: staff.surnames);
+        _descriptionController = TextEditingController(text: staff.surnames);
+      } else {
+        staff = Staff.empty();
+        _nameController = TextEditingController(text: '');
+        _surnamesController = TextEditingController(text: '');
+        _emailController = TextEditingController(text: '');
+        _phoneController = TextEditingController(text: '');
+        _descriptionController = TextEditingController(text: '');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    staff = ModalRoute.of(context).settings.arguments as Staff;
-
-    // New user? Create empty Staff. Edit user? Fetch existing Staff
-    if (_staffRole.isEmpty && staff?.role != null) {
-      _staffRole = staff?.role;
-      _nameController = TextEditingController(text: staff.name);
-      _surnamesController = TextEditingController(text: staff.surnames);
-    } else {
-      staff = Staff.create();
-      _nameController = TextEditingController(text: '');
-      _surnamesController = TextEditingController(text: '');
-    }
+    newStaffCheck();
 
     return Scaffold(
       appBar: AppBar(
@@ -66,13 +78,13 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              print(_nameController);
-              print(_nameController.text);
-              print(_nameController.value);
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
+              staff.email = _emailController.text;
+              staff.phone = _phoneController.text;
+              staff.description = _descriptionController.text;
               staff.role = _staffRole;
-              StaffData().addNewStaff(staff);
+              staff.createNewStaff();
             },
           )
         ],
@@ -86,15 +98,13 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               children: [
                 StaffUpdateTextFormField('Name', _nameController),
                 StaffUpdateTextFormField('Surname(s)', _surnamesController),
+                StaffUpdateTextFormField('Email', _emailController),
+                StaffUpdateTextFormField('Phone', _phoneController),
+                StaffUpdateTextFormField('Description', _descriptionController),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
                   value: _staffRole,
-                  // onSaved: (value) {
-                  //   setState(() {
-                  //     _myActivity = value;
-                  //   });
-                  // },
                   onChanged: (value) {
                     setState(() {
                       _staffRole = value;
