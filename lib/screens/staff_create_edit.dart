@@ -84,7 +84,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
-              staff.createNewStaff();
+              // staff.createNewStaff();
             },
           )
         ],
@@ -96,11 +96,42 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                StaffUpdateTextFormField('Name', _nameController),
-                StaffUpdateTextFormField('Surname/s', _surnamesController),
-                StaffUpdateTextFormField('Email', _emailController),
-                StaffUpdateTextFormField('Phone', _phoneController),
-                StaffUpdateTextFormField('Description', _descriptionController),
+                StaffUpdateTextFormField(
+                  labelText: 'Name',
+                  textController: _nameController,
+                  validation: (String value) {
+                    if (value.length < 2)
+                      return 'Type a name with at least 2 letters.';
+                    else if (value.contains(RegExp(r'[^a-zA-Z]')))
+                      return 'Use only letters.';
+                  },
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Surname/s',
+                  textController: _surnamesController,
+                  validation: (String value) {
+                    if (value.length < 2)
+                      return 'Type your surname/s with at least 2 letters.';
+                    else if (value.contains(RegExp(r'[^a-zA-Z\s]')))
+                      return 'Use only letters and spaces.';
+                  },
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Email',
+                  textController: _emailController,
+                  validation: (String value) {
+                    if (value.length <= 5)
+                      return 'Too short to be an email address.';
+                    else if (!value.contains(RegExp(
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')))
+                      return 'Not a propper email.';
+                  },
+                ),
+                StaffUpdateTextFormField(
+                    labelText: 'Phone', textController: _phoneController),
+                StaffUpdateTextFormField(
+                    labelText: 'Description',
+                    textController: _descriptionController),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
