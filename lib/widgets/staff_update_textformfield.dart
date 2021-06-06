@@ -1,6 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
 
 class StaffUpdateTextFormField extends StatelessWidget {
   final String labelText;
@@ -12,7 +12,8 @@ class StaffUpdateTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        primaryColor: const Color(0xff08C6Ab),
+        primaryColor: kStaffUpdateTextFormFieldPrimaryColour,
+        hintColor: kStaffUpdateTextFormFieldHintColour
       ),
       child: TextFormField(
         controller: textController,

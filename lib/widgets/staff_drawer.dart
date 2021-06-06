@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:staff_organizer/screens/staff_create_edit.dart';
 
+import '../constants.dart';
+import '../screens/staff_create_edit.dart';
 import '../screens/staff_list_screen.dart';
 
 class StaffDrawer extends StatelessWidget {
@@ -15,8 +16,13 @@ class StaffDrawer extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         children: [
           DrawerHeader(
-            child: Text('Drawer header'),
-            decoration: BoxDecoration(color: Colors.blue),
+            decoration: BoxDecoration(
+              color: kAppPrimaryColour,
+              image: DecorationImage(
+                image: AssetImage('assets/images/drawerImage.jpg'),
+              ),
+            ),
+            child: null,
           ),
           ListTile(
             title: Text('List Staff'),

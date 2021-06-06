@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
-import 'screens/staff_create_edit.dart';
+import './constants.dart';
+import './screens/staff_create_edit.dart';
 import './screens/staff_list_screen.dart';
 
 void main() async {
@@ -43,13 +44,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Staff Organizer',
       theme: ThemeData(
-        primaryColor: const Color(0xff726EEF),
+        primaryColor: kAppPrimaryColour,
         fontFamily: 'RobotoMono',
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            primary: const Color(0xff212B38),
-          ),
-        ),
+        textButtonTheme: kTextButtonThemeData,
+        inputDecorationTheme: InputDecorationTheme(),
         // TODO Change TextFormField hint to a grayish colour
       ),
       initialRoute: '/',
