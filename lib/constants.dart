@@ -8,5 +8,8 @@ final kTextButtonThemeData = TextButtonThemeData(
 
 const kAppPrimaryColour = const Color(0xff726EEF);
 const kAppSecondaryColour = const Color(0xff08C6Ab);
+const kAppTertiaryColour = const Color(0xff37465B);
+
 const kStaffUpdateTextFormFieldPrimaryColour = kAppSecondaryColour;
-const kStaffUpdateTextFormFieldHintColour = const Color(0xff37465B);
+const kStaffUpdateTextFormFieldHintColour = kAppTertiaryColour;
+const kDrawerHeaderColour = kAppPrimaryColour;

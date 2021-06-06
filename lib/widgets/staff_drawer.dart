@@ -17,9 +17,10 @@ class StaffDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: kAppPrimaryColour,
+              color: kDrawerHeaderColour,
               image: DecorationImage(
                 image: AssetImage('assets/images/drawerImage.jpg'),
+                fit: BoxFit.fill
               ),
             ),
             child: null,
