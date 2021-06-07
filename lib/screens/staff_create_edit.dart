@@ -85,7 +85,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
-              print('!!!!');
               // staff.createNewStaff();
             },
           )
@@ -153,6 +152,11 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   },
                 ),
                 DropDownFormField(
+                  validator: (value) {
+                    if (value == null) return 'Role required.';
+                    return '';
+                  },
+                  autovalidate: true,
                   titleText: 'Role',
                   hintText: 'Please choose one role',
                   value: _staffRole,
@@ -161,6 +165,8 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                       _staffRole = value;
                     });
                   },
+                  required: true,
+                  errorText: 'xD',
                   dataSource: [
                     {
                       "display": "Recepcionist",
