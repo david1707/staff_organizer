@@ -84,14 +84,12 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                 );
                 return;
               }
-
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
               staff.email = _emailController.text;
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
-
               // staff.createNewStaff();
             },
           )
@@ -113,6 +111,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                     else if (value.contains(RegExp(r'[^a-zA-Z]')))
                       return 'Use only letters.';
                   },
+                  keyboardType: TextInputType.name,
                 ),
                 StaffUpdateTextFormField(
                   labelText: 'Surname/s',
@@ -123,6 +122,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                     else if (value.contains(RegExp(r'[^a-zA-Z\s]')))
                       return 'Use only letters and spaces.';
                   },
+                  keyboardType: TextInputType.name,
                 ),
                 StaffUpdateTextFormField(
                   labelText: 'Email',
@@ -134,6 +134,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')))
                       return 'Not a propper email.';
                   },
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 StaffUpdateTextFormField(
                   labelText: 'Phone',
@@ -147,6 +148,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                         .contains(RegExp(r'^(?:[+0]9)?[0-9]{9,10}$')))
                       return 'Use only numbers.';
                   },
+                  keyboardType: TextInputType.phone,
                 ),
                 StaffUpdateTextFormField(
                   labelText: 'Description',
@@ -157,6 +159,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                     else if (value.length >= 500)
                       return 'The description is too long.';
                   },
+                  keyboardType: TextInputType.text,
                 ),
                 DropDownFormField(
                   validator: (value) {
