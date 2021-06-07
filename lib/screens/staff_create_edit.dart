@@ -70,7 +70,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Info ${staff.name} ${staff.surnames}'),
         actions: [
           IconButton(
             icon: Icon(
