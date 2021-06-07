@@ -20,6 +20,8 @@ class StaffUpdateTextFormField extends StatelessWidget {
           primaryColor: kStaffUpdateTextFormFieldPrimaryColour,
           hintColor: kStaffUpdateTextFormFieldHintColour),
       child: TextFormField(
+        minLines: 1,
+        maxLines: labelText != 'Description' ? 1 : 4,
         controller: textController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(

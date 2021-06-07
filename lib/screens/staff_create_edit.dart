@@ -78,12 +78,14 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
+              // TODO Check if all conditions are met, if not, don't let user store it (Hide Icon)
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
               staff.email = _emailController.text;
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
+              print('!!!!');
               // staff.createNewStaff();
             },
           )
@@ -128,10 +130,28 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   },
                 ),
                 StaffUpdateTextFormField(
-                    labelText: 'Phone', textController: _phoneController),
+                  labelText: 'Phone',
+                  textController: _phoneController,
+                  validation: (String value) {
+                    if (value.length <= 8)
+                      return 'Too short to be phone number.';
+                    else if (value.length >= 11)
+                      return 'Too long to be phone number.';
+                    else if (!value
+                        .contains(RegExp(r'^(?:[+0]9)?[0-9]{9,10}$')))
+                      return 'Use only numbers.';
+                  },
+                ),
                 StaffUpdateTextFormField(
-                    labelText: 'Description',
-                    textController: _descriptionController),
+                  labelText: 'Description',
+                  textController: _descriptionController,
+                  validation: (String value) {
+                    if (value.length <= 10)
+                      return 'The description is too short.';
+                    else if (value.length >= 11)
+                      return 'The description is too long.';
+                  },
+                ),
                 DropDownFormField(
                   titleText: 'Role',
                   hintText: 'Please choose one role',
