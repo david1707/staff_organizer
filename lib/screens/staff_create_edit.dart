@@ -18,7 +18,7 @@ class StaffInfoScreen extends StatefulWidget {
 }
 
 class _StaffInfoScreenState extends State<StaffInfoScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
 
   String _staffRole = '';
   Staff staff;
@@ -78,13 +78,20 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              // TODO Check if all conditions are met, if not, don't let user store it (Hide Icon)
+              if (!_formKey.currentState.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Please, correct all errors.')),
+                );
+                return;
+              }
+
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
               staff.email = _emailController.text;
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
+
               // staff.createNewStaff();
             },
           )
@@ -93,7 +100,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
       body: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -133,9 +140,9 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   textController: _phoneController,
                   validation: (String value) {
                     if (value.length <= 8)
-                      return 'Too short to be phone number.';
+                      return 'Too short to be a phone number.';
                     else if (value.length >= 11)
-                      return 'Too long to be phone number.';
+                      return 'Too long to be a phone number.';
                     else if (!value
                         .contains(RegExp(r'^(?:[+0]9)?[0-9]{9,10}$')))
                       return 'Use only numbers.';
@@ -147,14 +154,13 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                   validation: (String value) {
                     if (value.length <= 10)
                       return 'The description is too short.';
-                    else if (value.length >= 11)
+                    else if (value.length >= 500)
                       return 'The description is too long.';
                   },
                 ),
                 DropDownFormField(
                   validator: (value) {
                     if (value == null) return 'Role required.';
-                    return '';
                   },
                   autovalidate: true,
                   titleText: 'Role',
@@ -165,12 +171,15 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                       _staffRole = value;
                     });
                   },
-                  required: true,
-                  errorText: 'xD',
+                  onSaved: (value) {
+                    setState(() {
+                      _staffRole = value;
+                    });
+                  },
                   dataSource: [
                     {
-                      "display": "Recepcionist",
-                      "value": "Recepcionist",
+                      "display": "Receptionist",
+                      "value": "Receptionist",
                     },
                     {
                       "display": "HR",
