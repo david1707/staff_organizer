@@ -18,7 +18,7 @@ class StaffInfoScreen extends StatefulWidget {
 }
 
 class _StaffInfoScreenState extends State<StaffInfoScreen> {
-  final formKey = new GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
 
   String _staffRole = '';
   Staff staff;
@@ -70,7 +70,6 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Info ${staff.name} ${staff.surnames}'),
         actions: [
           IconButton(
             icon: Icon(
@@ -78,13 +77,19 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               color: Colors.white,
             ),
             onPressed: () {
+              if (!_formKey.currentState.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Please, correct all errors.')),
+                );
+                return;
+              }
               staff.name = _nameController.text;
               staff.surnames = _surnamesController.text;
               staff.email = _emailController.text;
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
-              staff.createNewStaff();
+              // staff.createNewStaff();
             },
           )
         ],
@@ -92,16 +97,74 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
       body: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                StaffUpdateTextFormField('Name', _nameController),
-                StaffUpdateTextFormField('Surname/s', _surnamesController),
-                StaffUpdateTextFormField('Email', _emailController),
-                StaffUpdateTextFormField('Phone', _phoneController),
-                StaffUpdateTextFormField('Description', _descriptionController),
+                StaffUpdateTextFormField(
+                  labelText: 'Name',
+                  textController: _nameController,
+                  validation: (String value) {
+                    if (value.length < 2)
+                      return 'Type a name with at least 2 letters.';
+                    else if (value.contains(RegExp(r'[^a-zA-Z]')))
+                      return 'Use only letters.';
+                  },
+                  keyboardType: TextInputType.name,
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Surname/s',
+                  textController: _surnamesController,
+                  validation: (String value) {
+                    if (value.length < 2)
+                      return 'Type your surname/s with at least 2 letters.';
+                    else if (value.contains(RegExp(r'[^a-zA-Z\s]')))
+                      return 'Use only letters and spaces.';
+                  },
+                  keyboardType: TextInputType.name,
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Email',
+                  textController: _emailController,
+                  validation: (String value) {
+                    if (value.length <= 5)
+                      return 'Too short to be an email address.';
+                    else if (!value.contains(RegExp(
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')))
+                      return 'Not a propper email.';
+                  },
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Phone',
+                  textController: _phoneController,
+                  validation: (String value) {
+                    if (value.length <= 8)
+                      return 'Too short to be a phone number.';
+                    else if (value.length >= 11)
+                      return 'Too long to be a phone number.';
+                    else if (!value
+                        .contains(RegExp(r'^(?:[+0]9)?[0-9]{9,10}$')))
+                      return 'Use only numbers.';
+                  },
+                  keyboardType: TextInputType.phone,
+                ),
+                StaffUpdateTextFormField(
+                  labelText: 'Description',
+                  textController: _descriptionController,
+                  validation: (String value) {
+                    if (value.length <= 10)
+                      return 'The description is too short.';
+                    else if (value.length >= 500)
+                      return 'The description is too long.';
+                  },
+                  keyboardType: TextInputType.text,
+                ),
                 DropDownFormField(
+                  validator: (value) {
+                    if (value == null) return 'Role required.';
+                  },
+                  autovalidate: true,
                   titleText: 'Role',
                   hintText: 'Please choose one role',
                   value: _staffRole,
@@ -110,10 +173,15 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
                       _staffRole = value;
                     });
                   },
+                  onSaved: (value) {
+                    setState(() {
+                      _staffRole = value;
+                    });
+                  },
                   dataSource: [
                     {
-                      "display": "Recepcionist",
-                      "value": "Recepcionist",
+                      "display": "Receptionist",
+                      "value": "Receptionist",
                     },
                     {
                       "display": "HR",
