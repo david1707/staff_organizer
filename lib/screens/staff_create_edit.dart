@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_formfield/dropdown_formfield.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:staff_organizer/models/staff_data.dart';
 
 import '../models/staff.dart';
 import '../widgets/staff_update_textformfield.dart';
@@ -89,7 +89,7 @@ class _StaffInfoScreenState extends State<StaffInfoScreen> {
               staff.phone = _phoneController.text;
               staff.description = _descriptionController.text;
               staff.role = _staffRole;
-              // staff.createNewStaff();
+              staff.createNewStaff();
             },
           )
         ],

@@ -37,7 +37,6 @@ class Staff {
     :  name = json['name'], surnames =  json['surnames'], role = json['role'];
 
   void createNewStaff() async {
-    print('ENTRA');
     inspect(this);
     if (this.name.isNotEmpty &&
         this.surnames.isNotEmpty &&

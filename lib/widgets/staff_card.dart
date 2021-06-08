@@ -46,6 +46,7 @@ class StaffCard extends StatelessWidget {
                   children: [
                     Text(
                       '${staff.name} ${staff.surnames}',
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       '${staff.role}',

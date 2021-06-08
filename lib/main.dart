@@ -36,7 +36,6 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'RobotoMono',
           textButtonTheme: kTextButtonThemeData,
           inputDecorationTheme: InputDecorationTheme(),
-          // TODO Change TextFormField hint to a grayish colour
         ),
         initialRoute: '/',
         routes: {

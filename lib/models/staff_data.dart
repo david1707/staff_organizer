@@ -9,8 +9,7 @@ class StaffData extends ChangeNotifier {
   StaffData() {
     FirebaseFirestore.instance.collection('staff').get().then((docSnapshot) {
       for (var doc in docSnapshot.docs) {
-        Staff _staff = Staff.fromJSON(doc.data());
-        _staffList.add(_staff);
+        _staffList.add(Staff.fromJSON(doc.data()));
       }
       notifyListeners();
     });
