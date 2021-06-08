@@ -28,7 +28,9 @@ class StaffCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: CircleAvatar(
                   minRadius: 30,
-                  backgroundImage: AssetImage('assets/images/${staff.photoName}'),
+                  backgroundImage: staff.photoName != null
+                      ? NetworkImage(staff.photoName)
+                      : AssetImage('assets/images/placeholder.png'),
                 ),
               ),
             ),
