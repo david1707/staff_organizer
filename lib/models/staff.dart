@@ -14,12 +14,12 @@ class Staff {
   String description;
 
   Staff({
-    @required this.photoName,
+    this.photoName,
     @required this.name,
     @required this.surnames,
     @required this.role,
-    @required this.email,
-    @required this.phone,
+    this.email,
+    this.phone,
     this.description,
   });
 
@@ -32,6 +32,9 @@ class Staff {
     this.phone = '',
     this.description = '',
   });
+
+  Staff.fromJSON(Map<String, dynamic> json)
+    :  name = json['name'], surnames =  json['surnames'], role = json['role'];
 
   void createNewStaff() async {
     print('ENTRA');
