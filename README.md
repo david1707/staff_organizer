@@ -7,6 +7,3 @@ WIP:
 - Reload data on pull at StaffListScreen
 - Fix and Add 'image' to the Staff Creating/Editing view
 - Refactor everything
-
-Bugs:
-- Throwing an error on displaying the image, since now we are moving from AssetImage to Network image
